@@ -52,7 +52,6 @@ namespace API.Controllers
 
             return CreatedAtRoute("GetProduct", response.Data, productDto);
         }
-
         /* [Route("[action]/{category}", Name = "GetProductByCategory")]
          [HttpGet]
          [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
