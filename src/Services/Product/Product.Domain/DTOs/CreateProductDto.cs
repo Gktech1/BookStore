@@ -1,11 +1,9 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿
 
-namespace Domain.Entities
+namespace Domain.DTOs
 {
-    public class Product
+    public class CreateProductDto
     {
-        [BsonId]
-        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string? ProductId { get; set; }
         public string? Title { get; set; }
         public string? Author { get; set; }
@@ -14,6 +12,6 @@ namespace Domain.Entities
         public string? Summary { get; set; }
         public string? Description { get; set; }
         public string? ImageFile { get; set; }
-        public long? StockQuantity { get; set; }
+        public long? StockQuantity { get; set; } = 0;
     }
 }

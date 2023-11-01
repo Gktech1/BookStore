@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  productdb:
+    image: mongo
+
+  product.api:
+    image: ${DOCKER_REGISTRY-}productapi
+    build:
+      context: .
+      dockerfile: src/Services/Product/Product.API/Dockerfile
+
+volumes:
+  mongo_data:

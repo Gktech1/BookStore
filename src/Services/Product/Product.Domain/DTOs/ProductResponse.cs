@@ -1,11 +1,9 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿
 
-namespace Domain.Entities
+namespace Domain.DTOs
 {
-    public class Product
+    public class ProductResponse
     {
-        [BsonId]
-        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string? ProductId { get; set; }
         public string? Title { get; set; }
         public string? Author { get; set; }
