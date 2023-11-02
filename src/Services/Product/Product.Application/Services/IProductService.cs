@@ -1,8 +1,7 @@
 ﻿
 
 using Domain.DTOs;
-using Domain.Entities;
-using Domain.DTOs;
+using Shared.GenericResponse;
 
 namespace Application.Services
 {

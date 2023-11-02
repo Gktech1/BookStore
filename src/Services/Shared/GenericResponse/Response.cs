@@ -1,8 +1,5 @@
-﻿
-
-using System.Net;
-
-namespace Domain.DTOs
+﻿using System.Net;
+namespace Shared.GenericResponse
 {
     public class GenericResponse<T>
     {

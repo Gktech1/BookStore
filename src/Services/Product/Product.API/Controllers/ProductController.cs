@@ -2,6 +2,7 @@
 using Domain.DTOs;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Shared.GenericResponse;
 using System.Net;
 
 namespace API.Controllers

@@ -5,6 +5,7 @@ using AutoMapper;
 using Domain.DTOs;
 using Domain.Entities;
 using Domain.Repositories;
+using Shared.GenericResponse;
 using System.Net;
 
 namespace Domain.Services
@@ -36,16 +37,6 @@ namespace Domain.Services
                 }
 
                 var listOfBooks = _mapper.Map<IEnumerable<ProductResponse>>(books);
-
-               /* foreach (var book in listOfBooks)
-                {
-                    var products = new Product
-                    {
-                        Author = book.Author,
-
-
-                    };
-                }*/
                 return new GenericResponse<IEnumerable<ProductResponse>>
                 {
                     ResponseMessage = "List of books successfully gotten",
