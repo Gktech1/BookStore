@@ -5,6 +5,8 @@ using Cart.Application.Repositories;
 using Cart.Application.Services;
 using Cart.Domain.DTOs;
 using Cart.Domain.Entities;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Shared.GenericResponse;
 using System.Net;
 
@@ -14,14 +16,17 @@ namespace Cart.Infrastructure.Services
     {
         private readonly ICartRepository _cartRepository;
         private readonly IMapper _mapper;
-        public CartService(ICartRepository cartRepository, IMapper mapper) 
+        private readonly ILogger<CartService> _logger;
+        public CartService(ICartRepository cartRepository, IMapper mapper, ILogger<CartService> logger) 
         {
             _cartRepository = cartRepository;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<GenericResponse<ShoppingCartRespone>> GetBasket(string userName)
         {
+            _logger.LogInformation($"Inside GetBasket  Service Method:{GetBasket}");
             try
             {
                 var result = await _cartRepository.GetCart(userName);
@@ -37,6 +42,7 @@ namespace Cart.Infrastructure.Services
                 } 
                 var items = _mapper.Map<ShoppingCartRespone>(result);
                 items.TotalPrice = TotalPrice(result.Items);
+                _logger.LogInformation($"The list of items gotten successfully: {JsonConvert.SerializeObject(items)}");
                 return new GenericResponse<ShoppingCartRespone>
                 {
                     ResponseMessage = "Item gotten successfully",
@@ -46,6 +52,7 @@ namespace Cart.Infrastructure.Services
             }
             catch (Exception ex) 
             {
+                _logger.LogError($"an error occur while processing the request{ex.Message}");
                 return new GenericResponse<ShoppingCartRespone>
                 {
                     ResponseMessage = $"an error occur while processing the request{ex.Message}",
@@ -75,7 +82,8 @@ namespace Cart.Infrastructure.Services
                 var cart = new ShoppingCart();
                 var updatedBasket = _mapper.Map<ShoppingCart>(updateBasket);
                 var getCart = _cartRepository.UpdateCart(updatedBasket);
-                
+                _logger.LogInformation($"The item gotten successfully: {JsonConvert.SerializeObject(getCart)}");
+
                 return new GenericResponse<ShoppingCartRespone>
                 {
                     ResponseMessage = "Item updated successfully",
@@ -110,6 +118,7 @@ namespace Cart.Infrastructure.Services
                     };
 
                 }
+                _logger.LogInformation($"The item remove form the cart successfully: {JsonConvert.SerializeObject(removeItemFromCart)}");
                 return new GenericResponse<ShoppingCartRespone>
                 {
                     ResponseMessage = "Item deleted successfully",

@@ -31,6 +31,7 @@ namespace Cart.API.Controllers
         [ProducesResponseType(typeof(ShoppingCartRespone), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<ShoppingCartRespone>> GetBasket(string userName)
         {
+            _logger.LogInformation($"Inside GetBasket Method:{GetBasket}");
             var basket = await _cartService.GetBasket(userName);
             return Ok(basket);
         }
@@ -39,8 +40,7 @@ namespace Cart.API.Controllers
         [ProducesResponseType(typeof(ShoppingCartRespone), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<ShoppingCartRespone>> UpdateCart([FromBody] UpdateShoppingCartDto updateBasketRequest)
         {
-            //_logger.LogInformation($"Inside Update Basket :{UpdateBasket}");
-           // Console.WriteLine($"Inside Update Basket Request: {JsonSerializer.Serialize(updateBasketRequest)}");
+            _logger.LogInformation($"Inside Update Basket :{UpdateCart}");
 
             return Ok(await _cartService.UpdateBasket(updateBasketRequest));
 
@@ -50,6 +50,7 @@ namespace Cart.API.Controllers
         [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteBasket(string userName)
         {
+            _logger.LogInformation($"Inside DeleteBaske Method:{DeleteBasket}");
             await _cartService.DeleteBasket(userName);
             return Ok();
         }
@@ -60,6 +61,7 @@ namespace Cart.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Checkout([FromBody] CartCheckoutDto cartCheckout)
         {
+            _logger.LogInformation($"Inside GeCheckout Method:{Checkout}");
             // get existing basket with total price 
             // Create basketCheckoutEvent -- Set TotalPrice on basketCheckout eventMessage
             // send checkout event to rabbitmq

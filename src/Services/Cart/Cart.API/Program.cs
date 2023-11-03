@@ -1,12 +1,13 @@
+using Cart.API.Extensions;
 using Cart.Application.Mapping;
 using Cart.Application.Repositories;
 using Cart.Application.Services;
 using Cart.Infrastructure.Repositories;
 using Cart.Infrastructure.Services;
 using MassTransit;
-using Microsoft.Extensions.DependencyInjection;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args)
+                            .AddSerilog();
 
 // Add services to the container.
 
