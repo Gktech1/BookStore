@@ -14,16 +14,19 @@ namespace API.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly ILogger<OrderController> _logger;
 
-        public OrderController(IMediator mediator)
+        public OrderController(IMediator mediator, ILogger<OrderController> logger)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _logger = logger;
         }
 
         [HttpGet("{userName}", Name = "GetOrder")]
         [ProducesResponseType(typeof(IEnumerable<OrdersVm>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<OrdersVm>>> GetOrdersByUserName(string userName)
         {
+            _logger.LogInformation($"Inside GetOrder Method:{GetOrdersByUserName}");
             var query = new GetOrdersListQuery(userName);
             var orders = await _mediator.Send(query);
             return Ok(orders);
@@ -34,6 +37,7 @@ namespace API.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<ActionResult<int>> CheckoutOrder([FromBody] CheckoutOrderCommand command)
         {
+            _logger.LogInformation($"Inside CheckoutOrder Method:{CheckoutOrder}");
             var result = await _mediator.Send(command);
             return Ok(result);
         }
@@ -44,6 +48,7 @@ namespace API.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult> UpdateOrder([FromBody] UpdateOrderCommand command)
         {
+            _logger.LogInformation($"Inside UpdateOrder Method:{UpdateOrder}");
             await _mediator.Send(command);
             return NoContent();
         }
@@ -54,6 +59,7 @@ namespace API.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult> DeleteOrder(int id)
         {
+            _logger.LogInformation($"Inside DeleteOrder Method:{DeleteOrder}");
             var command = new DeleteOrderCommand() { Id = id };
             await _mediator.Send(command);
             return NoContent();

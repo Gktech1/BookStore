@@ -5,10 +5,12 @@ using Infastructure;
 using Infrastructure.Persistence;
 using MassTransit;
 using Application;
+using Order.API.Extensions;
 
-var builder = WebApplication.CreateBuilder(args);
-
+var builder = WebApplication.CreateBuilder(args)
+                            .AddSerilog();
 // Add services to the container.
+
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);

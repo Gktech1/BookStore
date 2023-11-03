@@ -1,5 +1,4 @@
 ﻿
-
 using MediatR;
 
 namespace Application.Features.Orders.Commands.CheckoutOrder

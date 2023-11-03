@@ -11,6 +11,10 @@
 		<EmbeddedResource Remove="Commons\**" />
 		<None Remove="Commons\**" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+	</ItemGroup>
 	
 
 </Project>
