@@ -6,7 +6,8 @@
       "serviceActions": {
         "product.api": "StartDebugging",
         "cart.api": "StartDebugging",
-        "order.api": "StartDebugging"
+        "order.api": "StartDebugging",
+        "ocelotapigw": "StartDebugging"
       }
     }
   }
