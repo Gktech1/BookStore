@@ -4,11 +4,43 @@ services:
   productdb:
     image: mongo
 
+  cartdb:
+    image: redis:alpine
+
+  orderdb:
+    image: postgres
+
+  pgadmin:
+    image: dpage/pgadmin4
+
   product.api:
     image: ${DOCKER_REGISTRY-}productapi
     build:
       context: .
-      dockerfile: src/Services/Product/Dockerfile
+      dockerfile: src/Services/Product/Product.API/Dockerfile
+
+  cart.api:
+    image: ${DOCKER_REGISTRY-}cartapi
+    build:
+      context: .
+      dockerfile: src/Services/Cart/Cart.API/Dockerfile
+  
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+  
+  portainer:
+    image: portainer/portainer-ce
+
+  order.api:
+    image: ${DOCKER_REGISTRY-}orderapi
+    build:
+      context: .
+      dockerfile: src/Services/Order/Order.API/Dockerfile
 
 volumes:
   mongo_data:
+  portainer_data:
+  postgres_data:
+  pgadmin_data:
+
+

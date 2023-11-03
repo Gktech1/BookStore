@@ -1,4 +1,10 @@
+using Cart.Application.Mapping;
+using Cart.Application.Repositories;
+using Cart.Application.Services;
+using Cart.Infrastructure.Repositories;
+using Cart.Infrastructure.Services;
 using MassTransit;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +20,9 @@ builder.Services.AddMassTransit(config => {
     });
 });
 
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddAutoMapper(typeof(CartProfile)); ;
 // Redis Configuration
 builder.Services.AddStackExchangeRedisCache(options =>
 {

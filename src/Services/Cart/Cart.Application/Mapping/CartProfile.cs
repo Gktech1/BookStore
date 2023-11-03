@@ -11,8 +11,9 @@ namespace Cart.Application.Mapping
     {
         public CartProfile()
         {
-            CreateMap<CartCheckout, CartCheckoutEvent>().ReverseMap();
-            CreateMap<ShoppingCart, ShoppingCartRespone>().ReverseMap(); 
+            CreateMap<CartCheckoutDto, CartCheckoutEvent>().ReverseMap();
+            CreateMap<ShoppingCart, ShoppingCartRespone>().ReverseMap();
+            CreateMap<ShoppingCart, UpdateShoppingCartDto>().ReverseMap();
 
         }
     }

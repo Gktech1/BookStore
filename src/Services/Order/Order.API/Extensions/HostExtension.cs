@@ -1,0 +1,60 @@
+﻿
+using Microsoft.EntityFrameworkCore;
+using System.Data.SqlClient;
+
+namespace API.Extensions
+{
+    public static class HostExtensions
+    {
+        public static IHost MigrateDatabase<TContext>(this IHost host,
+                                            Action<TContext, IServiceProvider> seeder,
+                                            int? retry = 0) where TContext : DbContext
+        {
+            int retryForAvailability = retry.Value;
+
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var logger = services.GetRequiredService<ILogger<TContext>>();
+                var context = services.GetService<TContext>();
+                var db = scope.ServiceProvider.GetRequiredService<TContext>().Database;
+                while (!db.CanConnect())
+                {
+                    logger.LogInformation("Database not ready yet; waiting.....");
+                    Thread.Sleep(10000);
+                }
+                try
+                {
+                  
+                        logger.LogInformation("Migrating database associated with context {DbContextName}", typeof(TContext).Name);
+
+                        InvokeSeeder(seeder, context, services);
+
+                        logger.LogInformation("Migrated database associated with context {DbContextName}", typeof(TContext).Name);
+                   
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, "An error occurred while migrating the database used on context {DbContextName}", typeof(TContext).Name);
+
+                    if (retryForAvailability < 50)
+                    {
+                        retryForAvailability++;
+                        System.Threading.Thread.Sleep(2000);
+                        MigrateDatabase<TContext>(host, seeder, retryForAvailability);
+                    }
+                }
+            }
+            return host;
+        }
+
+        private static void InvokeSeeder<TContext>(Action<TContext, IServiceProvider> seeder,
+                                                    TContext context,
+                                                    IServiceProvider services)
+                                                    where TContext : DbContext
+        {
+            context.Database.Migrate();
+            seeder(context, services);
+        }
+    }
+}
