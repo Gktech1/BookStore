@@ -1,4 +1,4 @@
-﻿{
+{
   "profiles": {
     "OcelotApiGw": {
       "commandName": "Project",
@@ -7,7 +7,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5010"
+      "applicationUrl": "http://localhost:5020"
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -16,14 +16,13 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
-    
   },
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:62421",
-      "sslPort": 0
+      "applicationUrl": "http://localhost:18232",
+      "sslPort": 44362
     }
   }
 }

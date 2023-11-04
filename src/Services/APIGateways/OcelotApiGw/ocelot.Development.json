@@ -2,29 +2,17 @@
   "Routes": [
     //Product API
     {
-      "DownstreamPathTemplate": "/api/v1/Product",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": "8000"
-        }
-      ],
-      "UpstreamPathTemplate": "/Product",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
-      "FileCacheOptions": { "TtlSeconds": 30 }
-    },
-    {
       "DownstreamPathTemplate": "/api/v1/Product/{id}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8000"
+          "Port": "8007"
         }
       ],
       "UpstreamPathTemplate": "/Product/{id}",
-      "UpstreamHttpMethod": [ "GET", "DELETE" ]
+      "UpstreamHttpMethod": [ "GET"],
+      "FileCacheOptions": { "TtlSeconds": 30 }
     },
     {
       "DownstreamPathTemplate": "/api/v1/Product/GetAllProducts",
@@ -32,11 +20,23 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8000"
+          "Port": "8007"
         }
       ],
       "UpstreamPathTemplate": "/Product/GetAllProducts",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamHttpMethod": [ "GET"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/Product/CreateProduct",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "8007"
+        }
+      ],
+      "UpstreamPathTemplate": "/Product/CreateProduct",
+      "UpstreamHttpMethod": [ "POST" ]
     },
     //Cart API
     {
@@ -45,7 +45,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8001"
+          "Port": "8008"
         }
       ],
       "UpstreamPathTemplate": "/Cart/{userName}",
@@ -59,15 +59,15 @@
       }
     },
     {
-      "DownstreamPathTemplate": "/api/v1/Cart",
+      "DownstreamPathTemplate": "/api/v1/Cart/UpdateCart",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8001"
+          "Port": "8008"
         }
       ],
-      "UpstreamPathTemplate": "/Cart",
+      "UpstreamPathTemplate": "/Cart/UpdateCart",
       "UpstreamHttpMethod": [ "POST" ]
     },
     {
@@ -76,7 +76,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8001"
+          "Port": "8008"
         }
       ],
       "UpstreamPathTemplate": "/Cart/Checkout",
@@ -98,14 +98,52 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8004"
+          "Port": "8009"
         }
       ],
       "UpstreamPathTemplate": "/Order/{userName}",
       "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/Order/CheckoutOrder",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "8009"
+        }
+      ],
+      "UpstreamPathTemplate": "/Order/CheckoutOrder",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/Order/UpdateOrder",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "8009"
+        }
+      ],
+      "UpstreamPathTemplate": "/Order/UpdateOrder",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/v1/Order/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "8009"
+        }
+      ],
+      "UpstreamPathTemplate": "/Order/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ]
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5010"
+    "BaseUrl": "http://localhost:5020"
   }
 }

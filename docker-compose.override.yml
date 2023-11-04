@@ -99,5 +99,5 @@ services:
         - cart.api
         - order.api
     ports:
-      - "8010:80"
+      - "8020:80"
 
