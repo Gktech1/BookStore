@@ -5,6 +5,7 @@ namespace Application.Features.Orders.Commands.CheckoutOrder
 {
     public class CheckoutOrderCommand : IRequest<int>
     {
+        public int OrderId { get; set; } 
         public string UserName { get; set; }
         public decimal TotalPrice { get; set; }
         public string FirstName { get; set; }

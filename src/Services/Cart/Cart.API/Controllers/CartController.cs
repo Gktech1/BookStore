@@ -36,11 +36,11 @@ namespace Cart.API.Controllers
             return Ok(basket);
         }
 
-        [HttpPost("UpdateCart")]
+        [HttpPost("AddItemToCart")]
         [ProducesResponseType(typeof(ShoppingCartRespone), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<ShoppingCartRespone>> UpdateCart([FromBody] UpdateShoppingCartDto updateBasketRequest)
+        public async Task<ActionResult<ShoppingCartRespone>> AddItemToCart([FromBody] UpdateShoppingCartDto updateBasketRequest)
         {
-            _logger.LogInformation($"Inside Update Basket :{UpdateCart}");
+            _logger.LogInformation($"Inside AddItemToCart Method :{AddItemToCart}");
 
             return Ok(await _cartService.UpdateBasket(updateBasketRequest));
 

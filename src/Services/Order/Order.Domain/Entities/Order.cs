@@ -4,6 +4,7 @@ namespace Domain.Entities
 {
     public class Order : EntityBase
     {
+        public int OrderId { get; set; }    
         public string UserName { get; set; }
         public decimal TotalPrice { get; set; }
         public string FirstName { get; set; }

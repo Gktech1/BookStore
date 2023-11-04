@@ -22,7 +22,7 @@ namespace Application.Features.Orders.Commands.UpdateOrder
 
         public async Task<Unit> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
         {
-            var orderToUpdate = await _orderRepository.GetByIdAsync(request.OrderId); ;
+            var orderToUpdate = await _orderRepository.GetByIdAsync(request.OrderId); 
             if (orderToUpdate == null)
             {
                 throw new Exceptions.NotFoundException(nameof(Order), request.OrderId);

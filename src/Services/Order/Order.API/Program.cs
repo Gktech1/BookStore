@@ -6,6 +6,8 @@ using Infrastructure.Persistence;
 using MassTransit;
 using Application;
 using Order.API.Extensions;
+using Application.OrderHub;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args)
                             .AddSerilog();
@@ -16,6 +18,7 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<CartCheckoutConsumer>();
+builder.Services.AddSignalR();
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehaviour", true);
 
@@ -48,12 +51,23 @@ app.MigrateDatabase<OrderContext>((context, services) =>
         .Wait();
 
 });
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Use routing
+app.UseRouting();
+
+// Use endpoints
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<OrderStatusHub>("/orderStatusHub");
+    endpoints.MapControllers();
+});
 
 app.UseHttpsRedirection();
 

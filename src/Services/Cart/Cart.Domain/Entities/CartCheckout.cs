@@ -2,7 +2,7 @@
 namespace Cart.Domain.Entities
 {
     public class CartCheckout
-    {
+    {  
         public string UserName { get; set; }
         public decimal TotalPrice { get; set; }
         public string FirstName { get; set; }

@@ -59,7 +59,7 @@
       }
     },
     {
-      "DownstreamPathTemplate": "/api/v1/Cart/UpdateCart",
+      "DownstreamPathTemplate": "/api/v1/Cart/AddItemToCart",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -67,7 +67,7 @@
           "Port": "8008"
         }
       ],
-      "UpstreamPathTemplate": "/Cart/UpdateCart",
+      "UpstreamPathTemplate": "/Cart/AddItemToCart",
       "UpstreamHttpMethod": [ "POST" ]
     },
     {

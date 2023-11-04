@@ -81,18 +81,19 @@ namespace Cart.Infrastructure.Services
 
                 var cart = new ShoppingCart();
                 var updatedBasket = _mapper.Map<ShoppingCart>(updateBasket);
-                var getCart = _cartRepository.UpdateCart(updatedBasket);
-                _logger.LogInformation($"The item gotten successfully: {JsonConvert.SerializeObject(getCart)}");
+                var updateCartItem = await _cartRepository.UpdateCart(updatedBasket);
+                _logger.LogInformation($"The item gotten successfully: {JsonConvert.SerializeObject(updateCartItem)}");
 
                 return new GenericResponse<ShoppingCartRespone>
                 {
-                    ResponseMessage = "Item updated successfully",
+                    ResponseMessage = "Item Added successfully",
                     StatusCode = HttpStatusCode.OK,
                     Data = null
                 };
             }
             catch (Exception ex)
             {
+                _logger.LogError($"an error occur while processing the request{ex.Message}");
                 return new GenericResponse<ShoppingCartRespone>
                 {
                     ResponseMessage = $"an error occur while processing the request{ex.Message}",
@@ -106,19 +107,9 @@ namespace Cart.Infrastructure.Services
         {
             try
             {
-                var removeItemFromCart = _cartRepository.DeleteCart(userName);
+                await _cartRepository.DeleteCart(userName);
 
-                if (removeItemFromCart == null)
-                {
-                    return new GenericResponse<ShoppingCartRespone>
-                    {
-                        ResponseMessage = "Item is removed already",
-                        StatusCode = HttpStatusCode.NotFound,
-                        Data = null
-                    };
-
-                }
-                _logger.LogInformation($"The item remove form the cart successfully: {JsonConvert.SerializeObject(removeItemFromCart)}");
+                _logger.LogInformation($"The item remove form the cart successfully");
                 return new GenericResponse<ShoppingCartRespone>
                 {
                     ResponseMessage = "Item deleted successfully",
@@ -129,6 +120,7 @@ namespace Cart.Infrastructure.Services
             }
             catch(Exception ex) 
             {
+                _logger.LogError($"an error occur while processing the request{ex.Message}");
                 return new GenericResponse<ShoppingCartRespone>
                 {
                     ResponseMessage = $"an error occur while processing the request{ex.Message}",
