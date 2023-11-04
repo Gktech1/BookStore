@@ -6,7 +6,7 @@ namespace Application.OrderHub
 {
     public class OrderStatusHub : Hub
     {
-        public async Task SendOrderStatusUpdate(string orderId, string status)
+        public async Task SendOrderStatusUpdate(int orderId, string status)
         {
             await Clients.All.SendAsync("ReceiveOrderStatusUpdate", orderId, status);
         }
