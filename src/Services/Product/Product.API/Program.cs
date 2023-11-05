@@ -3,8 +3,10 @@ using Application.Services;
 using Domain.Repositories;
 using Domain.Services;
 using Infastructure.Data;
+using API.Extensions;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args)
+                            .AddSerilog(); 
 
 // Add services to the container.
 
