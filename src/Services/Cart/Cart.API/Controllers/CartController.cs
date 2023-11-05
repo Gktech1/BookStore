@@ -5,6 +5,7 @@ using Cart.Domain.Entities;
 using EventBus.Messages.Events;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Net;
 
 namespace Cart.API.Controllers
@@ -77,6 +78,7 @@ namespace Cart.API.Controllers
             // send checkout event to rabbitmq
             var eventMessage = _mapper.Map<CartCheckoutEvent>(cartCheckout);
             eventMessage.TotalPrice = cart.Data.TotalPrice;
+            _logger.LogInformation($"Event Message response: {JsonConvert.SerializeObject(eventMessage)}");
             await _publishEndpoint.Publish(eventMessage);
 
             // remove the basket
